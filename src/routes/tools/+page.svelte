@@ -2,6 +2,8 @@
     const { data } = $props()
     let urlap = $state(0)
     console.log(data.toolslist)
+
+    let kepnyitva = $state(0) 
 </script>
 <h1>Eszközök ({data.user?.name})</h1>
 {#if urlap === 0}
@@ -48,16 +50,29 @@
     </thead>
     <tbody>
     {#each data.toolslist as tool}
-        <tr>
+        <tr  onclick="{() => kepnyitva=kepnyitva?0:tool.id}">
             <td>{tool.title}</td>
             <td>{tool.description}</td>
             <td>{tool.serialnum}</td>
-        </tr>    
+        </tr>
+        {#if kepnyitva === tool.id}
+        <tr>
+            <td colspan="3">
+                <img src="{tool.image}" alt="{tool.description}">
+            </td>
+        </tr>
+        {/if}    
     {/each}
     </tbody>
 </table>
 
 <style>
+    tr {
+        cursor: pointer;
+    }
+    img {
+        height: 200px;
+    }
     input, select {
         width: 300px;
     }
