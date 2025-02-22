@@ -2,10 +2,11 @@ import { redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db'
 import * as table from '$lib/server/db/schema'
 export const load = async (event) => {
+    var toolslist = await db.select().from(table.tools)
     if (!event.locals.user) {
         return redirect(302, '/demo/lucia/login')
     }
-    return { user: event.locals.user }
+    return { user: event.locals.user, toolslist }
 }
 
 export const actions = {
